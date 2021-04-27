@@ -3,6 +3,7 @@ import { useState } from 'react'
 import TodoInput from './components/TodoInput';
 import TodoList from './components/TodoList';
 import TodoItem from './components/TodoItem';
+import SuccessAlert from './components/SuccessAlert'
 
 let todoList = [
   {
@@ -68,12 +69,44 @@ const App = () => {
 
   };
 
+  const removeTodo = todoId => {
+    if (window.confirm('Did you complete this quest?')) {
+      let newTodos = todos.filter(t => t.id !== todoId);
+      console.log(newTodos);
+      setTodos(newTodos);
+    }
+  };
+
   return (
-    <div className="container my-5">
-        <TodoInput todo={todo} setTodo={setTodo} saveTodo={saveTodo} />
-        <TodoList />
-        <TodoItem />
+    <div className='container'>
+
+      <h1 className="display-4 text-center my-5">Adventurer's Quest List</h1>
+      
+      <div className="row my-5">
+
+        <div className="col my-5">
+          <TodoInput
+            todo={todo}
+            setTodo={setTodo}
+            saveTodo={saveTodo}
+          />
+
+          <SuccessAlert
+            success={success}
+          />
+        </div>
+
+        <div className="col">
+          <TodoList
+            todos={todos}
+            removeTodo={removeTodo}
+            setTodo={setTodo}
+          />
+        </div>
+
     </div>
+
+  </div>
   );
 }
 
