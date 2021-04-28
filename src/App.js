@@ -10,19 +10,22 @@ let todoList = [
     id: 193679392029,
     name: "Fight a dragon",
     description: "A dragon has been terrorizing Xenon, a local city at the far west of the continent. We need the dragon gone for good. Reward - 100,000 XP & 100,000 Gold",
-    difficulty: "Very Hard"
+    difficulty: "Very Hard",
+    completed: false
   },
   {
     id: 239384733930,
     name: "Collect 15 nightshades",
     description: "I'm trying to concoct my very own poison, but I need to collect nightshades. These plants can by found in Denvale. Reward - 1,000 XP & 1,000 Gold",
-    difficulty: "Easy"
+    difficulty: "Easy",
+    completed: true
   },
   {
     id: 389300383807,
     name: "Escort and bodyguard Prince of Camelot",
     description: "The original person assigned to the job has been killed. We need someone to take his place. Reward - 10,000 XP & 10,000 Gold",
-    difficulty: "Hard"
+    difficulty: "Hard",
+    completed: false
   }
 ];
 
@@ -69,6 +72,24 @@ const App = () => {
 
   };
 
+  const updateTodo = selectedTodo => {
+    
+    // map through todos
+    // find where object matches todo param
+    // updated its completed bool
+    // take updated map array and set to todos: setTodos
+
+    const updated = todos.map( (todo, index) => {
+      if (selectedTodo === todo) {
+        return {...todo, completed: !todo.completed};
+      }
+      return todo;
+    });
+
+    setTodos(updated);
+
+  };
+
   const removeTodo = todoId => {
     if (window.confirm('Did you complete this quest?')) {
       let newTodos = todos.filter(t => t.id !== todoId);
@@ -99,6 +120,7 @@ const App = () => {
         <div className="col">
           <TodoList
             todos={todos}
+            updateTodo={updateTodo}
             removeTodo={removeTodo}
             setTodo={setTodo}
           />
